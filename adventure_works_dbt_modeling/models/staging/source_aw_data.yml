@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw_humanresources
-    database: PROJECT_AW_RAW_DB
+    database: RAW_AW_DB
     schema: humanresources
     tables:
       - name: employee
@@ -13,7 +13,7 @@ sources:
       - name: shift
 
   - name: raw_person
-    database: PROJECT_AW_RAW_DB
+    database: RAW_AW_DB
     schema: person
     tables:
       - name: address
@@ -31,7 +31,7 @@ sources:
       - name: stateprovince
 
   - name: raw_production
-    database: PROJECT_AW_RAW_DB
+    database: RAW_AW_DB
     schema: production
     tables:
       - name: billofmaterials
@@ -61,7 +61,7 @@ sources:
       - name: workorderrouting
 
   - name: raw_purchasing
-    database: PROJECT_AW_RAW_DB
+    database: RAW_AW_DB
     schema: purchasing
     tables:
       - name: productvendor
@@ -70,8 +70,8 @@ sources:
       - name: shipmethod
       - name: vendor
 
-    - name: raw_sales
-    database: PROJECT_AW_RAW_DB
+  - name: raw_sales
+    database: RAW_AW_DB
     schema: sales
     tables:
       - name: countryregioncurrency
