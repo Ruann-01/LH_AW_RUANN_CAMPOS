@@ -1,0 +1,95 @@
+version: 2
+
+sources:
+  - name: humanresources
+    database: PROJECT_AW_RAW_DB
+    schema: humanresources
+    tables:
+      - name: employee
+      - name: department
+      - name: employeedepartmenthistory
+      - name: employeepayhistory
+      - name: jobcandidate
+      - name: shift
+
+  - name: person
+    database: PROJECT_AW_RAW_DB
+    schema: person
+    tables:
+      - name: address
+      - name: addresstype
+      - name: businessentity
+      - name: businessentityaddress
+      - name: businessentitycontact
+      - name: contacttype
+      - name: countryregion
+      - name: emailaddress
+      - name: password
+      - name: person
+      - name: personphone
+      - name: phonenumbertype
+      - name: stateprovince
+
+  - name: production
+    database: PROJECT_AW_RAW_DB
+    schema: production
+    tables:
+      - name: billofmaterials
+      - name: culture
+      - name: document
+      - name: illustration
+      - name: location
+      - name: product
+      - name: productcategory
+      - name: productcosthistory
+      - name: productdescription
+      - name: productdocument
+      - name: productinventory
+      - name: productlistpricehistory
+      - name: productmodel
+      - name: productmodelillustration
+      - name: productmodelproduct
+      - name: productphoto
+      - name: productproductphoto
+      - name: productreview
+      - name: productsubcategory
+      - name: scrapreason
+      - name: transactionhistory
+      - name: transactionhistoryarchive
+      - name: unitmeasure
+      - name: workorder
+      - name: workorderrouting
+
+  - name: purchasing
+    database: PROJECT_AW_RAW_DB
+    schema: purchasing
+    tables:
+      - name: productvendor
+      - name: purchaseorderdetail
+      - name: purchaseorderheader
+      - name: shipmethod
+      - name: vendor
+
+    - name: sales
+    database: PROJECT_AW_RAW_DB
+    schema: sales
+    tables:
+      - name: countryregioncurrency
+      - name: creditcard
+      - name: currency
+      - name: currencyrate
+      - name: customer
+      - name: personcreditcard
+      - name: salesorderdetail
+      - name: salesorderheader
+      - name: salesorderheadersalesreason
+      - name: salesperson
+      - name: salespersonquotahistory
+      - name: salesreason
+      - name: salestaxrate
+      - name: salesterritory
+      - name: salesterritoryhistory
+      - name: shoppingcartitem
+      - name: specialoffer
+      - name: specialofferproduct
+      - name: store

@@ -1,4 +1,14 @@
+# Enviroments
+/venv
+/.meltano
+.env
 
+#dbt
 target/
 dbt_packages/
-logs/
+\logs
+dbt_packages
+target-deferred/
+
+.user.yml
+.idea

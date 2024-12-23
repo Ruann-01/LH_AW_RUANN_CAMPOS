@@ -18,7 +18,6 @@ plugins:
       user: $TAP_POSTGRES_USER
       password: $TAP_POSTGRES_PASSWORD
     select:
-    - 'person-stateprovince.*'
     - 'sales-countryregioncurrency.*'
     - 'sales-creditcard.*'
     - 'sales-currency.*'
@@ -49,6 +48,7 @@ plugins:
     - 'humanresources-employeepayhistory.*'
     - 'humanresources-jobcandidate.*'
     - 'humanresources-shift.*'
+    - 'person-stateprovince.*'
     - 'person-address.*'
     - 'person-addresstype.*'
     - 'person-businessentity.*'
