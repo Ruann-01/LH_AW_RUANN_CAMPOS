@@ -1,0 +1,10 @@
+# Enviroments
+/venv
+/.meltano
+.env
+
+target-snowflake--human*
+target-snowflake--person*
+target-snowflake--production*
+target-snowflake--purchasing*
+target-snowflake--sales*
