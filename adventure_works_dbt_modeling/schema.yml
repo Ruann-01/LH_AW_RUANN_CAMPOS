@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: humanresources
+  - name: raw_humanresources
     database: PROJECT_AW_RAW_DB
     schema: humanresources
     tables:
@@ -12,7 +12,7 @@ sources:
       - name: jobcandidate
       - name: shift
 
-  - name: person
+  - name: raw_person
     database: PROJECT_AW_RAW_DB
     schema: person
     tables:
@@ -30,7 +30,7 @@ sources:
       - name: phonenumbertype
       - name: stateprovince
 
-  - name: production
+  - name: raw_production
     database: PROJECT_AW_RAW_DB
     schema: production
     tables:
@@ -60,7 +60,7 @@ sources:
       - name: workorder
       - name: workorderrouting
 
-  - name: purchasing
+  - name: raw_purchasing
     database: PROJECT_AW_RAW_DB
     schema: purchasing
     tables:
@@ -70,7 +70,7 @@ sources:
       - name: shipmethod
       - name: vendor
 
-    - name: sales
+    - name: raw_sales
     database: PROJECT_AW_RAW_DB
     schema: sales
     tables:
