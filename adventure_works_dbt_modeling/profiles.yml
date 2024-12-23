@@ -1,4 +1,4 @@
-dbt_modeling_project:
+adventure_works_dbt_modeling:
   target: dev
   outputs:
     dev:
