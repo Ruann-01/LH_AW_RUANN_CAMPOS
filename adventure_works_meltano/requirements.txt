@@ -1,2 +1,2 @@
 meltano==3.6.0
-dbtcore
+dbt-core
