@@ -3,3 +3,4 @@
 .env
 
 .meltano
+\logs

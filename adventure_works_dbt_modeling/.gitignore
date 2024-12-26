@@ -12,3 +12,4 @@ target-deferred/
 
 .user.yml
 .idea
+package-lock.yml
