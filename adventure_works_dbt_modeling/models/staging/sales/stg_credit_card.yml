@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: stg_credit_card
+    description: >
+      Customer credit card information.
+    columns:
+      - name: creditcardid
+        description: >
+          Identity number of customer credit card, PK
+        tests:
+          - unique
+          - not_null
+
+      - name: cardtype
+        description: >
+          Credit card type name
+
+      - name: cardnumber
+        description: >
+          Number of credit card
+
+      - name: expmonth
+        description: >
+          Month of card Expiration
+
+      - name: expyear
+        description: >
+          year of card expiration
+
+      - name: modifieddate
+        description: >
+          date the record was last updated

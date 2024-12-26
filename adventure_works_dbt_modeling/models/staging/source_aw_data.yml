@@ -7,7 +7,7 @@ sources:
      This is a replica of the Adventureworks database used by our client.
     schema: humanresources
     description: >
-     This is a schema with information about human resources.
+     This schema contains all the humanresources tables
     tables:
       - name: employee
       - name: department
@@ -88,58 +88,9 @@ sources:
     tables:
       - name: countryregioncurrency
       - name: creditcard
-        description: >
-          Customer credit card information.
-        columns:
-          - name: creditcardid
-            description: >
-              Identity number of customer credit card, PK
-            tests:
-              - unique
-              - not_null
-          - name: cardtype
-            description: >
-              Credit card type name
-          - name: cardnumber
-            description: >
-              Number of credit card
-          - name: expmonth
-            description: >
-              Month of card Expiration
-          - name: expyear
-            description: >
-              year of card expiration
-          - name: modifieddate
-            description: >
-              date the record was last updated
       - name: currency
       - name: currencyrate
       - name: customer
-        description: >
-          Customer informations
-        columns:
-          - name: customerid
-            description: >
-              Customer identity number, PK
-            tests:
-              - unique
-              - not_null
-          - name: personid
-            description: >
-              Person identity number, FK to person.personid
-          - name: territoryid
-            description: >
-              ID of the territory in which the customer is located. 
-              Foreign key to SalesTerritory.SalesTerritoryID.
-          - name: storeid 
-            description: > 
-              Foreign key to Store.BusinessEntityID
-          - name: modifieddate
-            description: >
-              Date and time the record was last updated
-          - name: rowguid
-            description: >
-              Number uniquely identifying the record. Used to support a merge replication sample
       - name: personcreditcard
       - name: salesorderdetail
       - name: salesorderheader
