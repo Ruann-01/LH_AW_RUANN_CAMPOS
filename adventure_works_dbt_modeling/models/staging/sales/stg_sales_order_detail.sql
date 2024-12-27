@@ -1,10 +1,12 @@
 with
     sales_order_detail as (
         select
-            salesorderid /* Primary key*/
-            , salesorderdetailid /* Primary key*/				
-            , productid	/*Foreign key */
-            , specialofferid /*Foreign key */					
+            /* Primarys keys */
+            salesorderid 
+            , salesorderdetailid			
+            /*Foreigns keys */
+            , productid	
+            , specialofferid 					
             /* Informations about sales order detail */
             , carriertrackingnumber
             , orderqty
@@ -15,5 +17,6 @@ with
 
         from {{source('raw_sales', 'salesorderdetail')}}
     )
+
 select *
 from sales_order_detail

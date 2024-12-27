@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_sales_territory
+    description: >
+      Data model of the schema raw_sales and table about sales territory lookup.
+    columns:
+      - name: territoryid
+        description: >
+          Identification number of the sales territory, PK
+        tests:
+          - unique
+          - not_null
+      - name: countryregioncode
+        description: >
+          Country/region code for the sales territory, FK to country.countryregioncode
+      - name: name_sales_territory
+        description: >
+          Name of the sales territory
+      - name: group
+        description: >
+          Group to which the sales territory belongs
+      - name: salesytd
+        description: >
+          Sales amount year-to-date for the sales territory
+      - name: saleslastyear
+        description: >
+          Sales amount for the sales territory in the previous year
+      - name: costytd
+        description: >
+          Cost amount year-to-date for the sales territory
+      - name: costlastyear
+        description: >
+          Cost amount for the sales territory in the previous year
+      - name: modifieddate
+        description: >
+          Date when the sales territory was last modified

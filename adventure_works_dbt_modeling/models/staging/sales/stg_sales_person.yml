@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_sales_person
+    description: >
+      Data model of the schema raw_sales and table about salesperson information
+    columns:
+      - name: businessentityid
+        description: >
+          Identification number of the salesperson, PK
+        tests:
+          - unique
+          - not_null
+      - name: territoryid
+        description: >
+          Identification number of the territory, FK to salesterritory.territoryid
+      - name: salesquota
+        description: >
+          Sales quota for the salesperson
+      - name: bonus
+        description: >
+          Bonus amount for the salesperson
+      - name: commissionpct
+        description: >
+          Commission percentage for the salesperson
+      - name: salesytd
+        description: >
+          Sales amount year-to-date for the salesperson
+      - name: saleslastyear
+        description: >
+          Sales amount for the salesperson in the previous year
+      - name: rowguid
+        description: >
+          GUID (Globally Unique Identifier) for the salesperson
+      - name: modifieddate
+        description: >
+          Date when the salesperson was last modified

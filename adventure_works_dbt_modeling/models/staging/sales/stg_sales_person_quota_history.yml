@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_sales_person_quota_history
+    description: >
+      Data model of the schema raw_sales and table about sales performance tracking.
+    columns:
+      - name: businessentityid
+        description: >
+          Identification number of the salesperson, PK
+        tests:
+          - not_null
+      - name: salesquota
+        description: >
+          Sales quota for the salesperson
+      - name: quotadate
+        description: >
+          Date of the sales quota
+      - name: rowguid
+        description: >
+          GUID (Globally Unique Identifier) for the salesperson quota history
+      - name: modifieddate
+        description: >
+          Date when the salesperson quota history was last modified

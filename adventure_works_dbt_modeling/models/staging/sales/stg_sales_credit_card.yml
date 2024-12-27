@@ -1,13 +1,13 @@
 version: 2
 
 models:
-  - name: stg_credit_card
+  - name: stg_sales_credit_card
     description: >
-      Customer credit card information.
+      Data model of the schema raw_sales and table about customer credit card information.
     columns:
       - name: creditcardid
         description: >
-          Identity number of customer credit card, PK
+          Identity number of customer credit card, Primary key (PK)
         tests:
           - unique
           - not_null

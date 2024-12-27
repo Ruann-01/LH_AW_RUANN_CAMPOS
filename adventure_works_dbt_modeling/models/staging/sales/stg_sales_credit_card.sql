@@ -1,8 +1,9 @@
 with
     creditcard as (
         select
-            creditcardid /* primary key*/
-            /* informations about the credits card */
+            /* Primary key */
+            creditcardid 
+            /* Informations about the credits card */
             , cardtype
             , cardnumber
             , expmonth
@@ -11,5 +12,6 @@ with
 
         from {{source('raw_sales', 'creditcard')}}
     )
+
 select *
 from creditcard

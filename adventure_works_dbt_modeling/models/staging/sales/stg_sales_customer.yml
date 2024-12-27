@@ -1,29 +1,28 @@
 version: 2
 
 models:
-  - name: stg_customer
+  - name: stg_sales_customer
     description: >
-      Customer informations
+      Data model of the schema raw_sales and table about customer informations
     columns:
       - name: customerid
         description: >
-          Unique identifier for the customer
+          Unique identifier for the customer, PK
         tests:
           - unique
           - not_null
 
       - name: personid
         description: >
-          Person identity number, FK to person.personid
+          Person identity number, Foreign Key (FK) to person.personid
 
       - name: territoryid
         description: >
-          ID of the territory in which the customer is located.
-          Foreign key to SalesTerritory.SalesTerritoryID.
+          ID of the territory in which the customer is located. FK to SalesTerritory.SalesTerritoryID.
 
       - name: storeid
         description: > 
-          Foreign key to Store.BusinessEntityID
+          FK to Store.BusinessEntityID
 
       - name: modifieddate
         description: >
