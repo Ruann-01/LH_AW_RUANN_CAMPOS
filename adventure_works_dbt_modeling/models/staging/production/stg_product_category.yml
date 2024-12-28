@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_product_category
+    description: >
+      Data model of the schema raw_production and table about high-level product categorization.
+    columns:
+      - name: productcategoryid
+        description: >
+          Identification number of the product category, PK
+        tests:
+          - unique
+          - not_null
+      - name: name_product_category
+        description: >
+          Name of the product category
+      - name: modifieddate
+        description: >
+          Date when the product category was last modified
+      - name: rowguid
+        description: >
+          GUID (Globally Unique Identifier) for the product category

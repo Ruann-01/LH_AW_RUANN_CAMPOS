@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_product_subcategory
+    description: >
+      Data model of the schema raw_production and table about product subcategories.
+    columns:
+      - name: productsubcategoryid
+        description: >
+          Identity number of product subcategory, PK
+        tests:
+          - unique
+          - not_null
+      - name: name_product_subcategory
+        description: >
+          Name of the product subcategory 
+      - name: modifieddate
+        description: >
+          Date when the product subcategory was last modified
+      - name: rowguid
+        description: >
+          GUID (Globally Unique Identifier) for the product
