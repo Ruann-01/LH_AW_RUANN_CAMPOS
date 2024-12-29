@@ -4,6 +4,7 @@ models:
   - name: stg_sales_credit_card
     description: >
       Data model of the schema raw_sales and table about customer credit card information.
+      
     columns:
       - name: creditcardid
         description: >

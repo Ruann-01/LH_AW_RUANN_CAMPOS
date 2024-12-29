@@ -4,6 +4,7 @@ models:
   - name: stg_sales_order_detail
     description: >
       Data model of the schema raw_sales and table about individual products associated with a specific sales order
+      
     columns:
       - name: salesorderid
         description: >

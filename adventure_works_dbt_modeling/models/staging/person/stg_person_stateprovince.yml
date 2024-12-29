@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: stg_person_stateprovince
+    description: >
+      Data model of the schema raw_person and table about state and province lookup.
+      
+    columns:
+      - name: stateprovinceid
+        description: >
+            Identity number of entity state address, PK.
+        tests:
+          - unique
+          - not_null
+
+      - name: territoryid
+        description: >
+            ID of the territory in which the state or province is located.
+            Foreign key to SalesTerritory.SalesTerritoryID.
+
+      - name: name
+        description: >
+            State or province name.
+        tests:
+          - not_null
+
+      - name: countryregioncode
+        description: >
+            Country or region code. FK to countryregion.countryregioncode.
+        tests:
+          - not_null
+
+      - name: isonlystateprovinceflag
+        description: >
+            0 = StateProvinceCode exists.
+            1 = StateProvinceCode unavailable, using CountryRegionCode.
+
+      - name: rowguid
+        description: >
+            Number uniquely identifying the record. Used to support a merge replication sample.
+
+      - name: modifieddate
+        description: >
+            Date and time the record was last updated.

@@ -4,6 +4,7 @@ models:
   - name: stg_sales_special_offer
     description: >
       Data model of the schema raw_sales and table about sales discount lookup.
+
     columns:
       - name: specialofferid
         description: >
@@ -11,33 +12,43 @@ models:
         tests:
           - unique
           - not_null
+
       - name: description_discount
         description: >
           Description of the special offer (discount)
+
       - name: discountpct
         description: >
           Discount percentage for the special offer
+
       - name: type_discount
         description: >
           Type of the special offer (discount)
+
       - name: category
         description: >
           Category of the special offer
+
       - name: startdate
         description: >
           Start date of the special offer
+
       - name: enddate
         description: >
           End date of the special offer
+
       - name: minqty
         description: >
           Minimum quantity for the special offer
+
       - name: maxqty
         description: >
           Maximum quantity for the special offer
+
       - name: rowguid
         description: >
           GUID (Globally Unique Identifier) for the special offer
+          
       - name: modifieddate
         description: >
           Date when the special offer was last modified

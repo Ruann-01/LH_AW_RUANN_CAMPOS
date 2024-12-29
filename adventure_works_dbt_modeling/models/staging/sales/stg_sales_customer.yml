@@ -4,6 +4,7 @@ models:
   - name: stg_sales_customer
     description: >
       Data model of the schema raw_sales and table about customer informations
+      
     columns:
       - name: customerid
         description: >

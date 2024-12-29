@@ -4,6 +4,7 @@ models:
   - name: stg_sales_reason
     description: >
       Data model of the schema raw_sales and table about customer purchase reasons
+
     columns:
       - name: salesreasonid
         description: >
@@ -11,12 +12,15 @@ models:
         tests:
           - unique
           - not_null
+
       - name: name_sales_reason
         description: >
           Name of the sales reason
+
       - name: reasontype
         description: >
           Type of the sales reason
+          
       - name: modifieddate
         description: >
           Date when the sales reason was last modified

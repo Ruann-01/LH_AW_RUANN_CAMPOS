@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_person_businessentity_contact
+    description: >
+      Data model of the schema raw_person and table about cross-reference
+      mapping stores, vendors, and employees to people.
+      
+    columns:
+      - name: businessentityid
+        description: >
+            PK. FK to businessentity.businessentityID
+        tests:
+          - not_null
+
+      - name: contacttypeid
+        description: >
+            PK. FK to contacttype.contacttypeID.
+        tests:
+          - not_null
+
+      - name: personid
+        description: >
+            PK. FK to person.businessentityID.
+        tests:
+          - not_null
+      
+      - name: modifieddate
+        description: >
+          Date and time the record was modified
+
+      - name: rowguid
+        description: >
+            Unique identifier for the record.

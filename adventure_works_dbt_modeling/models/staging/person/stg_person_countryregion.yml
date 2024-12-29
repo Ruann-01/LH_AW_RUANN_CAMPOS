@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_person_countryregion
+    description: >
+      Data model of the schema raw_person and table about ISO standard codes for countries and regions.
+      
+    columns:
+      - name: countryregioncode
+        description: >
+            Country or region code, PK.
+        tests:
+          - unique
+          - not_null
+
+      - name: name_country
+        description: >
+            Country or region name.
+        tests:
+          - not_null
+
+      - name: modifieddate
+        description: >
+            Date and time the record was last updated.

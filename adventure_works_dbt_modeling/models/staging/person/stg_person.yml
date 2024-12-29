@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: stg_person
+    description: >
+      Data model of the schema raw_person and table about human beings involved 
+      with AdventureWorks: employees, customer contacts, and vendor contacts.
+      
+    columns:
+      - name: businessentityid
+        description: >
+            Person identity number, PK.
+        tests:
+          - unique
+          - not_null
+
+      - name: persontype
+        description: >
+            Type of person:
+            SC = Store Contact, IN = Individual customer, SP = Salesperson,
+            EM = Employee (non-sales), VC = Vendor contact, GC = General contact.
+
+      - name: firstname
+        description: >
+            Person's first name.
+
+      - name: middlename
+        description: >
+            Person's middle name.
+
+      - name: lastname
+        description: >
+            Person's last name.
+
+      - name: namestyle
+        description: >
+            Data in firstname and lastname are stored in western or eastern style.
+            0 = Western, 1 = Eastern. Default: 0.
+
+      - name: tittle
+        description: >
+            A courtesy title (e.g., Mr., Ms.).
+
+      - name: suffix
+        description: >
+            Surname suffix (e.g., Jr., Sr.).
+
+      - name: additionalcontactinfo
+        description: >
+            Additional contact information about the person stored in XML format.
+
+      - name: demographics
+        description: >
+            Personal information such as hobbies and income collected from online shoppers.
+            Used for sales analysis.
+
+      - name: emailpromotion
+        description: >
+            0 = Contact does not wish to receive email promotions,
+            1 = Contact wishes to receive email promotions from AdventureWorks,
+            2 = Contact wishes to receive email promotions from AdventureWorks and selected partners.
+            Default: 0.
+
+      - name: rowguid
+        description: >
+            GUID (Globally Unique Identifier) for the person.

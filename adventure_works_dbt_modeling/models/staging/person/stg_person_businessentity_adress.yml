@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_person_businessentity_adress
+    description: >
+        Data model of the schema raw_person and table about cross-reference 
+        mapping customers, vendors, and employees to their addresses.
+        
+    columns:
+      - name: businessentityid
+        description: >
+            Primary key. Foreign key to BusinessEntity.BusinessEntityID.
+
+      - name: addresstypeid
+        description: >
+            Primary key. Foreign key to AddressType.AddressTypeID.
+
+      - name: addressid
+        description: >
+            Primary key. Foreign key to Address.AddressID.
+
+      - name: modifieddate
+        description: >
+            Date and time the record was last updated.
+
+      - name: rowguid
+        description: >
+            ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.

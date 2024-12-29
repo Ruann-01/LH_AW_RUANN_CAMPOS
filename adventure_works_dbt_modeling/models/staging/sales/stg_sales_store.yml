@@ -4,6 +4,7 @@ models:
   - name: stg_sales_store
     description: >
       Data model of the schema raw_sales and table about stores from AdventureWorks.
+
     columns:
       - name: businessentityid
         description: >
@@ -11,18 +12,23 @@ models:
         tests:
           - unique
           - not_null
+
       - name: salespersonid
         description: >
           Identification number of the salesperson, FK to salesperson.businessentityid
+
       - name: name_store
         description: >
-          Name of the store (alias)
+          Name of the store
+
       - name: demographics
         description: >
           Demographic information of the store
+
       - name: rowguid
         description: >
           GUID (Globally Unique Identifier) for the store
+          
       - name: modifieddate
         description: >
           Date when the store was last modified

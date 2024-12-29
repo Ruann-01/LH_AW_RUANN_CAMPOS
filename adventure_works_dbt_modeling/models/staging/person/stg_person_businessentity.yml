@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_person_businessentity
+    description: >
+      Data model of the schema raw_person and table about source of the ID that 
+      connects vendors, customers, and employees with address and contact information.
+      
+    columns:
+      - name: businessentityid
+        description: >
+          Person identity number, PK FK
+        tests:
+          - not_null
+
+      - name: modifieddate
+        description: >
+          Date and time the record was modified
+
+      - name: rowguid
+        description: >
+          Globally Unique Identifier (GUID) for the record.

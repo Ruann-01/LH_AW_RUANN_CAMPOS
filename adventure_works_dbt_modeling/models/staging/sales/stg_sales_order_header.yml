@@ -4,6 +4,7 @@ models:
   - name: stg_sales_order_header
     description: >
       Data model of the schema raw_sales and table about general sales order information.
+
     columns:
       - name: salesorderid
         description: >
@@ -11,75 +12,99 @@ models:
         tests:
           - unique
           - not_null
+
       - name: customerid
         description: > 
           Identification number of the customer, FK to customer.customerid
+
       - name: salespersonid
         description: > 
           Identification number of the salesperson, FK to salesperson.salespersonid
+
       - name: territoryid
         description: > 
           Identification number of the territory, FK to territory.territoryid
+
       - name: billtoaddressid
         description: > 
           Identification number of the billing address, FK to address.addressid
+
       - name: shiptoaddressid
         description: > 
           Identification number of the shipping address, FK to address.addressid
+
       - name: creditcardid
         description: > 
           Identification number of the credit card, FK to creditcard.creditcardid
+
       - name: currencyrateid
         description: > 
           Identification number of the currency rate, FK to currencyrate.currencyrateid
+
       - name: shipmethodid
         description: > 
           Identification number of the shipping method, FK to shipmethod.shipmethodid
+
       - name: order_status
         description: >
           Status of the sales order
+
       - name: purchaseordernumber
         description: > 
           Purchase order number
+
       - name: creditcardapprovalcode
         description: >
           Approval code for the credit card
+
       - name: accountnumber
         description: >  
           Account number
+
       - name: onlineorderflag
         description: 
           Flag indicating if the order was placed online
+          
       - name: orderdate
         description: > 
           Date of the order
+
       - name: shipdate
         description: > 
           Date of shipment
+
       - name: duedate
         description: >
           Due date for payment
+
       - name: subtotal
         description: >
           Subtotal of the sales order
+
       - name: taxamt
         description: >
           Tax amount for the sales order
+
       - name: freight
         description: >
           Freight cost for the sales order
+
       - name: totaldue
         description: >
           Total amount due for the sales order
+
       - name: rowguid
         description: >
           GUID (Globally Unique Identifier) for the sales order
+
       - name: modifieddate
         description: >
           Date when the sales order was last modified
+
       - name: revisionnumber
         description: >
           Revision number of the sales order
+          
       - name: comment
         description: >
           Comment for the sales order
