@@ -1,0 +1,117 @@
+version: 2
+
+models:
+  - name: int_sales
+    description: >
+      This model organizes and details data so that it can be used in subsequent stages 
+      of the pipeline.
+
+    columns:
+      - name: salesorderid
+        description: >
+          Identification number of the sales order, PK
+        tests:
+          - not_null
+
+      - name: salesorderdetailid
+        description: >
+          Identification number of the sales order detail, PK
+        tests:
+          - unique
+          - not_null
+
+      - name: customerid
+        description: >
+          Unique identifier for the customer, FK
+        tests:
+          - unique
+          - not_null
+
+      - name: salespersonid
+        description: >
+          Identification number of the sales person, FK
+        tests:
+          - not_null
+
+      - name: territoryid
+        description: >
+          Identification number of the sales territory, FK
+        tests:
+          - unique
+          - not_null
+
+      - name: billtoaddressid
+        description: > 
+          Identification number of the billing address, FK to address.addressid
+
+      - name: shiptoaddressid
+        description: > 
+          Identification number of the shipping address, FK to address.addressid
+
+      - name: shipmethodid
+        description: > 
+          Identification number of the shipping method, FK to shipmethod.shipmethodid
+
+      - name: creditcardid
+        description: > 
+          Identification number of the credit card, FK to creditcard.creditcardid
+
+      - name: productid
+        description: >
+          Identification number of the product, FK to product.productid
+
+      - name: orderdate
+        description: > 
+          Date of the order
+
+      - name: online_order
+        description: > 
+          Type of purchases (physical or online)
+
+      - name: paid_with_credit_card
+        description: >
+          Type of buy (with credit card or not)
+
+      - name: cardtype
+        description: >
+          Credit card type name
+
+      - name: order_status
+        description: >
+          Status of the sales order
+
+      - name: carriertrackingnumber
+        description: >
+          Tracking number of the carrier for the sales order
+
+      - name: orderqty
+        description: >
+          Quantity of the product ordered
+
+      - name: unitprice
+        description: >
+          Unit price of the product
+
+      - name: unitpricediscount
+        description: >
+          Discount applied to the unit price of the product
+
+      - name: sub_total_fixed
+        description: >
+          Represents the adjusted subtotal for an order item after applying any discounts
+
+      - name: freight_fixed
+        description: >
+            Adjusted freight cost per item
+
+      - name: tax_fixed
+        description: >
+            Adjusted tax cost per item
+          
+      - name: total_gross
+        description: >
+                Total gross value of an order item, calculated as unit price multiplied by quantity
+
+      - name: reason_type
+        description: >
+            Type of the sales reason
