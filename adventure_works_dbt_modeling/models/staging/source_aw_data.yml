@@ -1,21 +1,6 @@
 version: 2
 
 sources:
-  - name: raw_humanresources
-    database: RAW_AW_DB
-    description: >
-     This is a replica of the Adventureworks database used by our client.
-    schema: humanresources
-    description: >
-     This schema contains all the humanresources tables
-    tables:
-      - name: employee
-      - name: department
-      - name: employeedepartmenthistory
-      - name: employeepayhistory
-      - name: jobcandidate
-      - name: shift
-
   - name: raw_person
     database: RAW_AW_DB
     description: >
@@ -23,18 +8,37 @@ sources:
     schema: person
     tables:
       - name: address
-      - name: addresstype
-      - name: businessentity
+      description: >
+        Table that provides informations about street address for customers, 
+        employees, and vendors.
+
       - name: businessentityaddress
+      description: >
+        Table that provides informations about cross-reference mapping customers, 
+        vendors, and employees to their addresses.
+
+      - name: businessentity
+      description: >
+        Table that provides informations about source of the ID that connects vendors,
+        customers, and employees with address and contact informations.
+
       - name: businessentitycontact
-      - name: contacttype
+      description: >
+        Table that provides informations about cross-reference mapping stores, vendors 
+        and employees to people.
+
       - name: countryregion
-      - name: emailaddress
-      - name: password
-      - name: person
-      - name: personphone
-      - name: phonenumbertype
+      description: >
+        Table that provides informations about ISO standard codes for countries and regions.
+
       - name: stateprovince
+      description: >
+        Table that provides informations about state and province lookup.
+
+      - name: person
+      description: >
+        Table that provides informations about human beings involved with AdventureWorks: 
+        employees, customer contacts, and vendor contacts.
 
   - name: raw_production
     database: RAW_AW_DB
@@ -42,43 +46,18 @@ sources:
      This is a replica of the Adventureworks database used by our client.
     schema: production
     tables:
-      - name: billofmaterials
-      - name: culture
-      - name: document
-      - name: illustration
-      - name: location
-      - name: product
       - name: productcategory
-      - name: productcosthistory
-      - name: productdescription
-      - name: productdocument
-      - name: productinventory
-      - name: productlistpricehistory
-      - name: productmodel
-      - name: productmodelillustration
-      - name: productmodelproduct
-      - name: productphoto
-      - name: productproductphoto
-      - name: productreview
-      - name: productsubcategory
-      - name: scrapreason
-      - name: transactionhistory
-      - name: transactionhistoryarchive
-      - name: unitmeasure
-      - name: workorder
-      - name: workorderrouting
+      description: >
+        Table that provides informations about high-level product categorization.
 
-  - name: raw_purchasing
-    database: RAW_AW_DB
-    description: >
-      This is a replica of the Adventureworks database used by our client.
-    schema: purchasing
-    tables:
-      - name: productvendor
-      - name: purchaseorderdetail
-      - name: purchaseorderheader
-      - name: shipmethod
-      - name: vendor
+      - name: productsubcategory
+      description: >
+        Table that provides informations about product subcategories.
+
+      - name: product
+      description: >
+        Table that provides informations about products sold or used in the manufacturing 
+        of sold products.
 
   - name: raw_sales
     database: RAW_AW_DB
@@ -86,22 +65,44 @@ sources:
       This is a replica of the Adventureworks database used by our client.
     schema: sales
     tables:
-      - name: countryregioncurrency
       - name: creditcard
-      - name: currency
-      - name: currencyrate
+      description: >
+        Table that provides informations about customer credit card information.
+
       - name: customer
-      - name: personcreditcard
+      description: >
+        Table that provides informations about customer informations.
+
       - name: salesorderdetail
-      - name: salesorderheader
+      description: >
+        Table that provides informations about individual products associated with 
+        a specific sales order.
+
       - name: salesorderheadersalesreason
-      - name: salesperson
+      description: >
+        Table that provides informations about cross-reference table mapping sales orders.
+        to sales reason codes.
+
       - name: salespersonquotahistory
+      description: >
+        Table that provides informations about sales performance tracking.
+
+      - name: salesperson
+      description: >
+        Table that provides informations about sales person information.
+
       - name: salesreason
-      - name: salestaxrate
-      - name: salesterritory
-      - name: salesterritoryhistory
-      - name: shoppingcartitem
+      description: >
+        Table that provides informations about customer purchase reasons.
+
       - name: specialoffer
-      - name: specialofferproduct
+      description: >
+        Table that provides informations about about sales discount lookup.
+
       - name: store
+      description: >
+        Table that provides informations about stores from AdventureWorks.
+        
+      - name: salesterritory
+      description: >
+        Table that provides informations about sales territory lookup.

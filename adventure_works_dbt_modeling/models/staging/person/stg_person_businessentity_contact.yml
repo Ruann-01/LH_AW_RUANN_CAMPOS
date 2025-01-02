@@ -4,7 +4,7 @@ models:
   - name: stg_person_businessentity_contact
     description: >
       Data model of the schema raw_person and table about cross-reference
-      mapping stores, vendors, and employees to people.
+      mapping stores, vendors and employees to people.
       
     columns:
       - name: businessentityid

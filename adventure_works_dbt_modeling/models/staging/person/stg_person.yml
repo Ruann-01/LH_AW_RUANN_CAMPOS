@@ -4,7 +4,7 @@ models:
   - name: stg_person
     description: >
       Data model of the schema raw_person and table about human beings involved 
-      with AdventureWorks: employees, customer contacts, and vendor contacts.
+      with AdventureWorks: employees, customer contacts and vendor contacts.
       
     columns:
       - name: businessentityid

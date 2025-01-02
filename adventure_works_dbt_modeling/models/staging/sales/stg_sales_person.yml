@@ -3,7 +3,7 @@ version: 2
 models:
   - name: stg_sales_person
     description: >
-      Data model of the schema raw_sales and table about salesperson information
+      Data model of the schema raw_sales and table about sales person information
 
     columns:
       - name: businessentityid
