@@ -155,7 +155,30 @@ with
 
     , union_reason as (
         select
-            fixed_table.*
+            salesorderid
+            , salesorderdetailid
+            , customerid
+            , salespersonid
+            , territoryid
+            , billtoaddressid
+            , shiptoaddressid
+            , shipmethodid
+            , creditcardid
+            , productid
+            , orderdate
+            , online_order
+            , paid_with_credit_card
+            , cardtype
+            , order_status
+            , carriertrackingnumber
+            , orderqty
+            , unitprice
+            , unitpricediscount
+            , sub_total_fixed
+            , freight_fixed
+            , tax_fixed
+            , total_due_fixed
+            , total_gross
             , reason_type
             from fixed_table
             left join int_reason 

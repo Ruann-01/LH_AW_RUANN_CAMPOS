@@ -1,6 +1,7 @@
 version: 2
 
 sources:
+  # raw person
   - name: raw_person
     database: RAW_AW_DB
     description: >
@@ -8,38 +9,39 @@ sources:
     schema: person
     tables:
       - name: address
-      description: >
-        Table that provides informations about street address for customers, 
-        employees, and vendors.
+        description: >
+          Table that provides informations about street address for customers, 
+          employees, and vendors.
 
       - name: businessentityaddress
-      description: >
-        Table that provides informations about cross-reference mapping customers, 
-        vendors, and employees to their addresses.
+        description: >
+          Table that provides informations about cross-reference mapping customers, 
+          vendors, and employees to their addresses.
 
       - name: businessentity
-      description: >
-        Table that provides informations about source of the ID that connects vendors,
-        customers, and employees with address and contact informations.
+        description: >
+          Table that provides informations about source of the ID that connects vendors,
+          customers, and employees with address and contact informations.
 
       - name: businessentitycontact
-      description: >
-        Table that provides informations about cross-reference mapping stores, vendors 
-        and employees to people.
+        description: >
+          Table that provides informations about cross-reference mapping stores, vendors 
+          and employees to people.
 
       - name: countryregion
-      description: >
-        Table that provides informations about ISO standard codes for countries and regions.
+        description: >
+          Table that provides informations about ISO standard codes for countries and regions.
 
       - name: stateprovince
-      description: >
-        Table that provides informations about state and province lookup.
+        description: >
+          Table that provides informations about state and province lookup.
 
       - name: person
-      description: >
-        Table that provides informations about human beings involved with AdventureWorks: 
-        employees, customer contacts, and vendor contacts.
+        description: >
+          Table that provides informations about human beings involved with AdventureWorks: 
+          employees, customer contacts, and vendor contacts.
 
+  # raw production
   - name: raw_production
     database: RAW_AW_DB
     description: >
@@ -47,18 +49,19 @@ sources:
     schema: production
     tables:
       - name: productcategory
-      description: >
-        Table that provides informations about high-level product categorization.
+        description: >
+          Table that provides informations about high-level product categorization.
 
       - name: productsubcategory
-      description: >
-        Table that provides informations about product subcategories.
+        description: >
+          Table that provides informations about product subcategories.
 
       - name: product
-      description: >
-        Table that provides informations about products sold or used in the manufacturing 
-        of sold products.
+        description: >
+          Table that provides informations about products sold or used in the manufacturing 
+          of sold products.
 
+  # raw sales
   - name: raw_sales
     database: RAW_AW_DB
     description: >
@@ -66,43 +69,47 @@ sources:
     schema: sales
     tables:
       - name: creditcard
-      description: >
-        Table that provides informations about customer credit card information.
+        description: >
+          Table that provides informations about customer credit card information.
 
       - name: customer
-      description: >
-        Table that provides informations about customer informations.
+        description: >
+          Table that provides informations about customer informations.
 
       - name: salesorderdetail
-      description: >
-        Table that provides informations about individual products associated with 
-        a specific sales order.
+        description: >
+          Table that provides informations about individual products associated with 
+          a specific sales order.
 
       - name: salesorderheadersalesreason
-      description: >
-        Table that provides informations about cross-reference table mapping sales orders.
-        to sales reason codes.
+        description: >
+          Table that provides informations about cross-reference table mapping sales orders.
+          to sales reason codes.
+
+      - name: salesorderheader
+        description: >
+          Table that provides informations about general sales order information.
 
       - name: salespersonquotahistory
-      description: >
-        Table that provides informations about sales performance tracking.
+        description: >
+          Table that provides informations about sales performance tracking.
 
       - name: salesperson
-      description: >
-        Table that provides informations about sales person information.
+        description: >
+          Table that provides informations about sales person information.
 
       - name: salesreason
-      description: >
-        Table that provides informations about customer purchase reasons.
+        description: >
+          Table that provides informations about customer purchase reasons.
 
       - name: specialoffer
-      description: >
-        Table that provides informations about about sales discount lookup.
+        description: >
+          Table that provides informations about about sales discount lookup.
 
       - name: store
-      description: >
-        Table that provides informations about stores from AdventureWorks.
+        description: >
+          Table that provides informations about stores from AdventureWorks.
         
       - name: salesterritory
-      description: >
-        Table that provides informations about sales territory lookup.
+        description: >
+          Table that provides informations about sales territory lookup.
