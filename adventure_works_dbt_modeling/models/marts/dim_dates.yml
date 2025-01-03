@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: dim_date
+  - name: dim_dates
     description: >
       This table contains information about the dates that events occur for all sources.
 

@@ -7,7 +7,7 @@ with
             , countryregioncode
             /* Informations about sales by territory */
             , name as name_sales_territory
-            , 'group'
+            , 'group' as group_territory
             , salesytd
             , saleslastyear
             , costytd

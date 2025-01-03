@@ -8,7 +8,7 @@ models:
     columns:
       - name: dim_creditcard_sk
         description: >
-          Surrogate key generated using salesorderid, creditcardid, and rowguid.
+          Surrogate key generated using creditcardid.
         tests:
           - not_null
           - unique

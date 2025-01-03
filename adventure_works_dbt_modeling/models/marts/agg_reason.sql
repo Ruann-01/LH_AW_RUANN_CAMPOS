@@ -50,19 +50,25 @@ with
             salesorderid
             , replace(
                 replace(
-                    replace(aggregated_reasontype, 'Other, Other', 'Other')
-                    , 'Other, Promotion', 'Promotion'
+                    replace(
+                        replace(
+                            replace(trim(aggregated_reasontype), 'Other, Other', 'Other') 
+                            , 'Other, Promotion', 'Promotion'
+                        )
+                        , 'Marketing, Other', 'Marketing'
+                    )
+                    , 'Other, Marketing', 'Marketing'
                 )
-                , 'Marketing, Other', 'Marketing'
-            ) as cleaned_reasontype,
-            replace(aggregated_name_sales_reason, 'Other, Other', 'Other') as cleaned_name_sales_reason
+                , 'Promotion, Other', 'Promotion'
+            ) as cleaned_reason_type
+            , replace(trim(aggregated_name_sales_reason), 'Other, Other', 'Other') as cleaned_name_sales_reason
         from stringified_aggregations
     )
 
     , final_output as (
         select
             salesorderid
-            , coalesce(cleaned_reasontype, 'Not defined') as reason_type
+            , coalesce(cleaned_reason_type, 'Not defined') as reason_type
             , coalesce(cleaned_name_sales_reason, 'Not defined') as name_sales_reason
         from cleaned_aggregations
     )

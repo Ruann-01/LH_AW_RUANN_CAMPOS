@@ -21,7 +21,7 @@ models:
         description: >
           Name of the sales territory
 
-      - name: group
+      - name: group_territory
         description: >
           Group to which the sales territory belongs
 

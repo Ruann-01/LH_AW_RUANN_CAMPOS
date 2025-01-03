@@ -43,7 +43,10 @@ with
             , salespersonid
             , creditcardid
             , card_type
-            , row_number() over (partition by creditcardid order by creditcardid) as remove_duplicates_index
+            , row_number() over (
+                partition by creditcardid 
+                order by creditcardid
+            ) as remove_duplicates_index
         from join_dim_credit_card
     )
 

@@ -1,14 +1,14 @@
 version: 2
 
 models:
-  - name: dim_client
+  - name: dim_clients
     description: >
       Dimension table containing client information.
       
     columns:
       - name: dim_client_sk
         description: >
-          Surrogate key generated using customerid, personid, and rowguid.
+          Surrogate key generated using customerid.
         tests:
           - not_null
           - unique

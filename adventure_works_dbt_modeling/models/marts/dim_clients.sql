@@ -67,7 +67,10 @@ with
             , name_store
             , person_type
             , complete_name
-            , row_number() over (partition by customerid order by customerid) as remove_duplicates_index
+            , row_number() over (
+                partition by customerid 
+                order by customerid
+            ) as remove_duplicates_index
         from join_dim_client
     )
 

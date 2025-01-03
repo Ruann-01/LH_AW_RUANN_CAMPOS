@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: dim_locations
+    description: >
+      Dimension table containing locations information.
+
+    columns:
+      - name: dim_locations_sk
+        description: >
+          Surrogate key generated using addressid.
+        tests:
+          - not_null
+          - unique
+
+      - name: Address
+        description: >
+          Address identifier.
+
+      - name: territoryid
+        description: >
+          Territory identifier.
+
+      - name: stateprovinceid
+        description: >
+          State/Province identifier.
+
+      - name: countryregioncode
+        description: >
+          Country/Region code.
+
+      - name: stateprovincecode
+        description: >
+          State/Province code.
+
+      - name: name_state_province
+        description: >
+          Name of the state/province.
+
+      - name: city
+        description: >
+          City of the address.
+
+      - name: name_sales_territory
+        description: >
+          Name of the sales territory

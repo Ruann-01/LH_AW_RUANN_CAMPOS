@@ -1,5 +1,5 @@
 with
-    person_adress as (
+    person_address as (
         select
             /* Primary key*/
             addressid
@@ -20,4 +20,4 @@ with
     )
 
 select *
-from person_adress
+from person_address
