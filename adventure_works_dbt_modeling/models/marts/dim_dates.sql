@@ -1,4 +1,3 @@
-
 with 
     /* Using dbt_utils to create a sequence of days. */
     date_series as (
@@ -19,30 +18,33 @@ with
             , extract(year from date_day) as select_year
             , extract(quarter from date_day) as select_quarter
             , case
-                when extract(month from date_day) = 1 then 'January'
-                when extract(month from date_day) = 2 then 'February'
-                when extract(month from date_day) = 3 then 'March'
-                when extract(month from date_day) = 4 then 'April'
+                when extract(month from date_day) = 1 then 'Jan'
+                when extract(month from date_day) = 2 then 'Feb'
+                when extract(month from date_day) = 3 then 'Mar'
+                when extract(month from date_day) = 4 then 'Apr'
                 when extract(month from date_day) = 5 then 'May'
-                when extract(month from date_day) = 6 then 'June'
-                when extract(month from date_day) = 7 then 'July'
-                when extract(month from date_day) = 8 then 'August'
-                when extract(month from date_day) = 9 then 'September'
-                when extract(month from date_day) = 10 then 'October'
-                when extract(month from date_day) = 11 then 'November'
-                when extract(month from date_day) = 12 then 'December'
+                when extract(month from date_day) = 6 then 'Jun'
+                when extract(month from date_day) = 7 then 'Jul'
+                when extract(month from date_day) = 8 then 'Aug'
+                when extract(month from date_day) = 9 then 'Sep'
+                when extract(month from date_day) = 10 then 'Oct'
+                when extract(month from date_day) = 11 then 'Nov'
+                when extract(month from date_day) = 12 then 'Dec'
             end as full_month
+            , to_char(date_day, 'Day') as day_name
         from date_series
     )
 
     , date_columns_final as (
         select
-            metric_date
+            {{ dbt_utils.generate_surrogate_key(['metric_date']) }} as dim_date_sk
+            , metric_date
             , select_day
             , select_month
             , select_year
             , select_quarter
             , full_month
+            , day_name
         from date_columns
     )
 

@@ -60,7 +60,7 @@ models:
         description: >
           Identification number of the product, FK to product.productid
 
-      - name: orderdate
+      - name: order_date
         description: > 
           Date of the order
 
@@ -72,7 +72,7 @@ models:
         description: >
           Type of buy (with credit card or not)
 
-      - name: cardtype
+      - name: card_type
         description: >
           Credit card type name
 
@@ -80,19 +80,19 @@ models:
         description: >
           Status of the sales order
 
-      - name: carriertrackingnumber
+      - name: carrier_tracking_number
         description: >
           Tracking number of the carrier for the sales order
 
-      - name: orderqty
+      - name: order_qty
         description: >
           Quantity of the product ordered
 
-      - name: unitprice
+      - name: unit_price
         description: >
           Unit price of the product
 
-      - name: unitpricediscount
+      - name: unit_price_discount
         description: >
           Discount applied to the unit price of the product
 
@@ -107,6 +107,10 @@ models:
       - name: tax_fixed
         description: >
             Adjusted tax cost per item
+
+      - name: total_due_fixed
+        description: >
+          Total due value of an order item, calculated as the sum of the fixed subtotal, fixed freight, and fixed tax amounts.
           
       - name: total_gross
         description: >

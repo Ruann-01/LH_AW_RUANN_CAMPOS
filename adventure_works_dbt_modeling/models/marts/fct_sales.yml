@@ -6,7 +6,7 @@ models:
       Fact table containing sales information.
 
     columns:
-      - name: sale_identifier_sk
+      - name: fct_sales_sk
         description: >
           Unique identifier for each row in the fact table.
         tests:
@@ -19,114 +19,94 @@ models:
         tests:
           - not_null
 
+      - name: dim_product_fk
+        description: >
+          Foreign key referencing the product dimension table.
+        tests:
+          - not_null
+
       - name: dim_client_fk
         description: >
           Foreign key referencing the client dimension table.
         tests:
-          - relationships:
-              to: ref('dim_client')
-              field: dim_client_sk
+          - not_null
 
-      - name: dim_territories_fk
+      - name: dim_location_fk
         description: >
-          Foreign key referencing the territories dimension table.
+          Foreign key referencing the locations dimension table.
         tests:
-          - relationships:
-              to: ref('dim_territories')
-              field: dim_territories_sk
+          - not_null
 
       - name: dim_creditcard_fk
         description: >
           Foreign key referencing the credit card dimension table.
         tests:
-          - relationships:
-              to: ref('dim_credit_card')
-              field: dim_credit_card_sk
+          - not_null
       
       - name: dim_sales_reason_fk
         description: >
           Foreign key referencing the sales reason dimension table.
         tests:
-          - relationships:
-              to: ref('dim_sales_reason')
-              field: dim_sales_reason_sk
+          - not_null
 
-      - name: status
+      - name: dim_date_fk
         description: >
-          Sales status.
+          Foreign key referencing the dates dimension table.
+        tests:
+          - not_null
 
-      - name: subtotal
-        description: >
-          Subtotal of the sales order.
-
-      - name: taxamt
-        description: >
-          Tax amount for the sales order.
-
-      - name: freight
-        description: >
-          Freight amount for the sales order.
-
-      - name: totaldue
-        description: >
-          Total amount due for the sales order.
-
-      - name: tax_per_order
-        description: >
-          Tax amount per order.
-
-      - name: freight_per_order
-        description: >
-          Freight amount per order.
-
-      - name: totaldue_per_order
-        description: >
-          Total due amount per order.
-
-      - name: orderdate
+      - name: order_date
         description: >
           Date of the sales order.
 
-      - name: dim_product_fk
-        description: >
-          Foreign key referencing the product dimension table.
-        tests:
-          - relationships:
-              to: ref('dim_products')
-              field: dim_product_sk
+      - name: online_order
+        description: > 
+          Type of purchases (physical or online)
 
-      - name: specialofferid
+      - name: paid_with_credit_card
         description: >
-          Identifier for special offers applied to the sales order.
+          Type of buy (with credit card or not)
 
-      - name: orderqty
+      - name: card_type
         description: >
-          Quantity for each product in the sales order.
+          Credit card type name
 
-      - name: unitprice
+      - name: order_status
         description: >
-          Unit price of the product in the sales order.
+          Status of the sales order
 
-      - name: unitpricediscount
+      - name: carrier_tracking_number
         description: >
-          Discount for the unit price in the sales order.
+          Tracking number of the carrier for the sales order
+
+      - name: order_qty
+        description: >
+          Quantity of the product ordered
+
+      - name: unit_price
+        description: >
+          Unit price of the product
+
+      - name: unit_price_discount
+        description: >
+          Discount applied to the unit price of the product
 
       - name: sub_total_fixed
         description: >
-          Subtotal proportional to order_detail_id.
-
-      - name: total_gross
-        description: >
-          Total gross proportional to order_detail_id.
-
-      - name: tax_amount_fixed
-        description: >
-          Tax amount proportional to order_detail_id.
+          Represents the adjusted subtotal for an order item after applying any discounts
 
       - name: freight_fixed
         description: >
-          Freight amount proportional to order_detail_id.
+            Adjusted freight cost per item
+
+      - name: tax_fixed
+        description: >
+            Adjusted tax cost per item
+
+      - name: total_gross
+        description: >
+                Total gross value of an order item, calculated as unit price multiplied by quantity
 
       - name: total_due_fixed
         description: >
-          Total due proportional to order_detail_id.
+          Total due value of an order item, calculated as the sum of the fixed subtotal, fixed freight, and fixed tax amounts.

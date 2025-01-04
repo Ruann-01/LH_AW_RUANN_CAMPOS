@@ -8,7 +8,8 @@ with
             /* Informations and caracteristics about the products */
             , productnumber			
             , name_product
-            , rowguid				
+            , style
+            , listprice			
         from {{ref('stg_product')}}
     )
 
@@ -31,41 +32,41 @@ with
             , name_product_subcategory
         from {{ref('stg_product_subcategory')}}
     )
-    
-    , remove_duplicates as (
-        select
-            *,
-            row_number() over (
-                partition by productid 
-                order by productid
-            ) as remove_duplicates_index,
-        from product
-    )
 
     , join_dim_product as (
         select
             {{ dbt_utils.generate_surrogate_key(['productid']) }} as dim_product_sk
-            , coalesce(remove_duplicates.productsubcategoryid, 0) as productsubcategoryid
-            , remove_duplicates.name_product
+            , coalesce(product.productsubcategoryid, 0) as productsubcategoryid
+            , product.productid
+            , product.name_product
+            , product.listprice
+            , product.style
             , product_category.name_product_category
             , coalesce(product_subcategory.name_product_subcategory, 'Not informed') as name_product_subcategory
-            from remove_duplicates
+            from product
             left join product_subcategory 
-                on (remove_duplicates.productsubcategoryid = product_subcategory.productsubcategoryid)
+                on product.productsubcategoryid = product_subcategory.productsubcategoryid
             left join product_category 
-                on (product_subcategory.productcategoryid = product_category.productcategoryid)
-            where remove_duplicates_index = 1 
+                on product_subcategory.productcategoryid = product_category.productcategoryid
     )
 
-    , products_columns_final as (
+    , products_transformed as (
         select 
             dim_product_sk
+            , productid
             , productsubcategoryid
             , name_product
             , name_product_category
             , name_product_subcategory
+            , style
+            , listprice as price 
+            , row_number() over (
+                partition by productid 
+                order by productid
+            ) as remove_duplicates_index
         from join_dim_product
     )
 
 select *
-from products_columns_final
+from products_transformed
+where remove_duplicates_index = 1 

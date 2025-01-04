@@ -10,6 +10,12 @@ with
         from {{ref('stg_person_address')}}
     )
 
+    , sales_order_header as (
+        select 
+            distinct(shiptoaddressid)
+        from {{ref('stg_sales_order_header')}}
+    )
+
     , state_province as (
         select
             /* Primary key */
@@ -23,56 +29,44 @@ with
         from {{ref('stg_person_stateprovince')}}
     )
 
-    , sales_territory as (
+    , country_region as (
         select
-            /* Primary key */
-            territoryid
-            /* Foreign key */
-            , countryregioncode
-            /* Informations about sales by territories */
-            , name_sales_territory
-            , group_territory
-            , salesytd
-            , saleslastyear
-            , costytd
-            , costlastyear
-        from {{ref('stg_sales_territory')}}
+            countryregioncode
+            , name_country
+        from {{ref('stg_person_countryregion')}}
     )
     
     , join_dim_locations as (
         select
-            {{ dbt_utils.generate_surrogate_key(['addressid']) }} as dim_locations_sk
-            , address_information.addressid
+            {{ dbt_utils.generate_surrogate_key(['shiptoaddressid']) }} as dim_location_sk
+            , sales_order_header.shiptoaddressid
             , address_information.stateprovinceid
             , address_information.city
             , state_province.countryregioncode
             , state_province.stateprovincecode
             , state_province.name_state_province
-            , sales_territory.name_sales_territory
-            from address_information
-            left join state_province 
-                on (address_information.stateprovinceid = state_province.stateprovinceid)
-            left join sales_territory 
-                on (state_province.territoryid = sales_territory.territoryid)
+            , country_region.name_country
+        from sales_order_header
+        left join address_information 
+            on address_information.addressid = sales_order_header.shiptoaddressid
+        left join state_province 
+            on address_information.stateprovinceid = state_province.stateprovinceid
+        left join country_region
+            on state_province.countryregioncode = country_region.countryregioncode
     )
 
-    , locations_filter_remove_duplicates as (
+    , locations_transformed as (
         select
-            dim_locations_sk
-            , addressid
+            dim_location_sk
+            , shiptoaddressid
             , stateprovinceid
             , countryregioncode
             , stateprovincecode
             , name_state_province
             , city
-            , name_sales_territory
-            , row_number() over (
-                partition by addressid 
-                order by addressid
-            ) as remove_duplicates_index,
+            , name_country
         from join_dim_locations
     )
 
 select *
-from locations_filter_remove_duplicates
-where remove_duplicates_index = 1 
+from locations_transformed

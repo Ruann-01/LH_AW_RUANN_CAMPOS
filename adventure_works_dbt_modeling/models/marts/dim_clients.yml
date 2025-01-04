@@ -16,6 +16,9 @@ models:
       - name: customerid
         description: >
           Customer identifier.
+        tests:
+          - not_null
+          - unique
 
       - name: personid
         description: >
@@ -42,6 +45,7 @@ models:
             - EM for Employee
             - VC for Vendor
             - GC for General Contact
+            - Unknow type
 
       - name: complete_name
         description: >

@@ -46,18 +46,19 @@ with
                 when person.persontype = 'EM' then 'Employee'
                 when person.persontype = 'VC' then 'Vendor'
                 when person.persontype = 'GC' then 'General Contact'
+                else 'Unknown Type'
             end as person_type
-            , person.complete_name
+            , coalesce(person.complete_name, 'Unknown Name') as complete_name
         from customer
         left join person 
-            on (customer.personid = person.businessentityid)
+            on customer.personid = person.businessentityid
         left join store 
-            on (customer.storeid = store.businessentityid)
+            on customer.storeid = store.businessentityid
         where customer.personid is not null
         order by customer.customerid asc
     )
 
-    , client_filter_remove_duplicates as (
+    , client_transformed as (
         select
             dim_client_sk
             , customerid
@@ -67,13 +68,8 @@ with
             , name_store
             , person_type
             , complete_name
-            , row_number() over (
-                partition by customerid 
-                order by customerid
-            ) as remove_duplicates_index
         from join_dim_client
     )
 
 select *
-from client_filter_remove_duplicates
-where remove_duplicates_index = 1 
+from client_transformed

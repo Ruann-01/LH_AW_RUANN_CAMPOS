@@ -13,22 +13,17 @@ models:
           - not_null
           - unique
 
+      - name: creditcardid
+        description: >
+          Credit card identifier.
+        tests:
+          - not_null
+          - unique
+
       - name: salesorderid
         description: >
           Sales order identifier.
 
-      - name: customerid
-        description: >
-          Customer identifier.
-
-      - name: salespersonid
-        description: >
-          Salesperson identifier.
-
-      - name: creditcardid
-        description: >
-          Credit card identifier. Defaulted to 0 if null.
-
-      - name: cardtype
+      - name: card_type
         description: >
           Type of credit card. Defaulted to 'Not informed' if null.

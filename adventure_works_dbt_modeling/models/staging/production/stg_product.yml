@@ -17,8 +17,6 @@ models:
       - name: name
         description: >
           Name of the product
-        tests:
-          - unique
 
       - name: productsubcategoryid
         description: >

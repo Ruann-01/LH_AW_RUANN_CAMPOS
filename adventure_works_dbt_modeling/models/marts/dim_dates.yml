@@ -6,6 +6,13 @@ models:
       This table contains information about the dates that events occur for all sources.
 
     columns:
+      - name: dim_date_sk
+        description: >
+          Surrogate key generated using metric_date.
+        tests:
+          - not_null
+          - unique
+
       - name: metric_date
         description: >
           Single date record.
@@ -32,3 +39,7 @@ models:
       - name: full_month
         description: >
           Full name of the month of the year.
+
+      - name: day_name
+        description: >
+          Full name of the day of the month.

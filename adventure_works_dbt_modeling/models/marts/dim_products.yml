@@ -13,9 +13,18 @@ models:
           - not_null
           - unique
 
+      - name: productid
+        description: >
+          Product identifier.
+        tests:
+          - unique
+          - not_null
+
       - name: productsubcategoryid
         description: >
           Product subcategory identifier. Defaulted to 0 if null.
+        tests:
+          - not_null
 
       - name: name_product
         description: >
@@ -28,3 +37,11 @@ models:
       - name: name_product_subcategory
         description: >
           Name of the product subcategory. Defaulted to 'Not informed' if null.
+      
+      - name: style
+        description: > 
+          The style of the product
+
+      - name: price
+        description: >
+          The price of the product

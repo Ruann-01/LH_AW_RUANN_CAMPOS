@@ -6,20 +6,19 @@ models:
       Dimension table containing locations information.
 
     columns:
-      - name: dim_locations_sk
+      - name: dim_location_sk
         description: >
-          Surrogate key generated using addressid.
+          Surrogate key generated using shiptoaddressid.
         tests:
           - not_null
           - unique
 
-      - name: Address
+      - name: shiptoaddressid
         description: >
-          Address identifier.
-
-      - name: territoryid
-        description: >
-          Territory identifier.
+          The address id shipped to.
+        tests:
+          - unique
+          - not_null
 
       - name: stateprovinceid
         description: >
@@ -41,6 +40,6 @@ models:
         description: >
           City of the address.
 
-      - name: name_sales_territory
+      - name: name_country
         description: >
-          Name of the sales territory
+          Name of the country.
