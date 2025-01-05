@@ -158,7 +158,6 @@ with
             fixed_table.salesorderid
             , fixed_table.salesorderdetailid
             , fixed_table.customerid
-            , fixed_table.salespersonid
             , fixed_table.territoryid
             , fixed_table.billtoaddressid
             , fixed_table.shiptoaddressid

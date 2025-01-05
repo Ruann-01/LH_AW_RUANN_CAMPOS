@@ -9,5 +9,5 @@ adventure_works_dbt_modeling:
       role: "{{ env_var('DBT_SF_DEV_ROLE') }}"
       database: "{{ env_var('DBT_SF_DEV_DATABASE') }}"
       warehouse: "{{ env_var('DBT_SF_DEV_WAREHOUSE') }}"
-      schema: "{{ env_var('DBT_SF_DEV_SCHEMA') }}"
+      schema: "dev"
       client_session_keep_alive: False
