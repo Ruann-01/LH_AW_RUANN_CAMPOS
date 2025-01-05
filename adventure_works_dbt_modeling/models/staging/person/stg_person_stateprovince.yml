@@ -18,7 +18,7 @@ models:
             ID of the territory in which the state or province is located.
             Foreign key to SalesTerritory.SalesTerritoryID.
 
-      - name: name
+      - name: name_state_province
         description: >
             State or province name.
         tests:

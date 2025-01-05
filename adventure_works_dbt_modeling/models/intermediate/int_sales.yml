@@ -24,20 +24,12 @@ models:
         description: >
           Unique identifier for the customer, FK
         tests:
-          - unique
-          - not_null
-
-      - name: salespersonid
-        description: >
-          Identification number of the sales person, FK
-        tests:
           - not_null
 
       - name: territoryid
         description: >
           Identification number of the sales territory, FK
         tests:
-          - unique
           - not_null
 
       - name: billtoaddressid

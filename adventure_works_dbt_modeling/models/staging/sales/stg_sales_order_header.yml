@@ -16,6 +16,8 @@ models:
       - name: customerid
         description: > 
           Identification number of the customer, FK to customer.customerid
+        tests:
+          - not_null
 
       - name: salespersonid
         description: > 
@@ -24,6 +26,8 @@ models:
       - name: territoryid
         description: > 
           Identification number of the territory, FK to territory.territoryid
+        tests:
+          - not_null
 
       - name: billtoaddressid
         description: > 

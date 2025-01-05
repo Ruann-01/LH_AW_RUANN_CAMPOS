@@ -9,9 +9,19 @@ with
         from {{ ref('dim_dates') }}
     )
 
+    , deduplication_data as (
+        select
+            *
+            , row_number() over (
+                partition by salesorderid, salesorderdetailid 
+                order by salesorderid
+            ) as dedup_index
+        from int_sales
+    )
+
     , sales_transformed_final  as (
         select
-            {{ dbt_utils.generate_surrogate_key(['salesorderdetailid']) }}  as fct_sales_sk
+            {{ dbt_utils.generate_surrogate_key(['salesorderid','salesorderdetailid']) }}  as fct_sales_sk
             , {{ dbt_utils.generate_surrogate_key(['salesorderid']) }} as sales_order_fk
             , {{ dbt_utils.generate_surrogate_key(['productid']) }} as dim_product_fk
             , {{ dbt_utils.generate_surrogate_key(['customerid']) }} as dim_client_fk
@@ -32,9 +42,9 @@ with
             , tax_fixed
             , total_gross
             , total_due_fixed
-        from int_sales
+        from deduplication_data
         left join dates 
-            on int_sales.order_date = dates.metric_date 
+            on deduplication_data.order_date = dates.metric_date 
     )
 
 select *

@@ -4,8 +4,7 @@ with
             /* Primary key */
             salesorderid
             /* Foreign keys */
-            , customerid		
-            , salespersonid	
+            , customerid			
             , territoryid	
             , billtoaddressid	
             , shiptoaddressid	
@@ -123,7 +122,6 @@ with
             salesorderid
             , salesorderdetailid
             , customerid
-            , salespersonid
             , territoryid
             , billtoaddressid
             , shiptoaddressid
