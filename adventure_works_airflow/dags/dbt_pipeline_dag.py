@@ -16,7 +16,7 @@ with DAG(
     default_args=default_args,
     description='Executa a modelagem em dbt diariamente',
     schedule_interval='0 6 * * *',  # Executa todos os dias às 06:00
-    start_date=days_ago(1),  # Sempre próximo da data atual sem ajustes manuais.
+    start_date=days_ago(1),  # Sempre próximo da data atual sem ajustes manuais
     catchup=False,
 ) as dag:
 
