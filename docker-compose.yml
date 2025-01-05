@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  airflow:
+    image: apache/airflow:2.7.0
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: 'y1WFolOpfKYvhgfvBvh2OeyCBTKUj0swcPTdYWE7qJ4='
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "airflow webserver --port 8080 & 
+               airflow scheduler"
+    depends_on:
+      - postgres
+    volumes:
+      - ./adventure_works_airflow/dags:/opt/airflow/dags
+      - ./adventure_works_airflow/logs:/opt/airflow/logs
+      - ./adventure_works_airflow/data:/opt/airflow/data
+      - D:/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS:/mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS  
+
+  airflow-init:
+    image: apache/airflow:2.7.0
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: 'y1WFolOpfKYvhgfvBvh2OeyCBTKUj0swcPTdYWE7qJ4='
+    depends_on:
+      - postgres
+    entrypoint: >
+      bash -c "airflow db init"
+    volumes:
+      - ./adventure_works_airflow/dags:/opt/airflow/dags
+      - ./adventure_works_airflow/logs:/opt/airflow/logs
+      - ./adventure_works_airflow/data:/opt/airflow/data
+      - D:/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS:/mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS  # Adicionado
+
+volumes:
+  postgres_data:
