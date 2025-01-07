@@ -10,27 +10,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  airflow:
-    image: apache/airflow:2.7.0
-    environment:
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW__CORE__FERNET_KEY: 'y1WFolOpfKYvhgfvBvh2OeyCBTKUj0swcPTdYWE7qJ4='
-    ports:
-      - "8080:8080"
-    command: >
-      bash -c "airflow webserver --port 8080 & 
-               airflow scheduler"
-    depends_on:
-      - postgres
-    volumes:
-      - ./adventure_works_airflow/dags:/opt/airflow/dags
-      - ./adventure_works_airflow/logs:/opt/airflow/logs
-      - ./adventure_works_airflow/data:/opt/airflow/data
-      - D:/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS:/mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS  
-
   airflow-init:
-    image: apache/airflow:2.7.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
@@ -43,7 +26,39 @@ services:
       - ./adventure_works_airflow/dags:/opt/airflow/dags
       - ./adventure_works_airflow/logs:/opt/airflow/logs
       - ./adventure_works_airflow/data:/opt/airflow/data
-      - D:/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS:/mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS  # Adicionado
+      - D:/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS:/mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS
+    restart: "no"  # Este serviço é executado apenas uma vez para inicializar o banco de dados
 
+  airflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: 'y1WFolOpfKYvhgfvBvh2OeyCBTKUj0swcPTdYWE7qJ4='
+      DBT_SF_DB_ACCOUNT: ${DBT_SF_DB_ACCOUNT}
+      DBT_SF_DEV_USER: ${DBT_SF_DEV_USER}
+      DBT_SF_DEV_PASSWORD: ${DBT_SF_DEV_PASSWORD}
+      DBT_SF_DEV_ROLE: ${DBT_SF_DEV_ROLE}
+      DBT_SF_DEV_SCHEMA: dev
+      DBT_SF_DEV_DATABASE: ${DBT_SF_DEV_DATABASE}
+      DBT_SF_DEV_WAREHOUSE: ${DBT_SF_DEV_WAREHOUSE}
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - airflow-init  # Aguarda o `airflow-init` concluir
+    volumes:
+      - ./adventure_works_airflow/dags:/opt/airflow/dags
+      - ./adventure_works_airflow/logs:/opt/airflow/logs
+      - ./adventure_works_airflow/data:/opt/airflow/data
+      - D:/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS:/mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS
+  
+    command: >
+      bash -c "airflow webserver --port 8080 & airflow scheduler"
+      
 volumes:
   postgres_data:

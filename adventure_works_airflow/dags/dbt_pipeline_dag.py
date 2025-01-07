@@ -19,12 +19,12 @@ with DAG(
     start_date=days_ago(1),  # Sempre próximo da data atual sem ajustes manuais
     catchup=False,
 ) as dag:
-
+    
     # Baixa dependências do dbt
-    dbt_deps = BashOperator(
-        task_id='dbt_deps',
-        bash_command='cd /mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS/adventure_works_dbt_modeling && dbt deps'
-    )
+    #dbt_deps = BashOperator(
+    #task_id='dbt_deps',
+    #bash_command='cd /mnt/d/Documents/Desafios_Indicium/LH_AW_RUANN_CAMPOS/adventure_works_dbt_modeling && dbt deps'
+    #)
 
     # Testa os modelos dbt
     dbt_test = BashOperator(
@@ -39,4 +39,4 @@ with DAG(
     )
 
     # Dependências entre as tarefas
-    dbt_deps >> dbt_test >> dbt_run
+    dbt_test >> dbt_run
