@@ -1,10 +1,11 @@
 with 
-    sales_order_header as (
+    salesorderheader as (
         select
             /* Primary key */
             salesorderid
             /* Foreign keys */
-            , customerid			
+            , customerid		
+            , salespersonid	
             , territoryid	
             , billtoaddressid	
             , shiptoaddressid	
@@ -24,7 +25,7 @@ with
             , creditcardapprovalcode					
             , accountnumber					
             , onlineorderflag
-            , orderdate
+	        , orderdate
             , shipdate	
             , duedate		
             /* Order pricing */
@@ -35,73 +36,65 @@ with
         from {{ref('stg_sales_order_header')}}
     )
 
-    , sales_order_detail as (
+    , salesorderdetail as (
         select
-            /* Primary key */
+            /* Primary Key*/
             salesorderid
             , salesorderdetailid					
-            /* Foreign key */
+            /*Foreign Key */
             , productid	
             , specialofferid					
-            /* Sales order detail */
+            /* Informations about sales order detail */
             , carriertrackingnumber
             , orderqty
             , unitprice
             , unitpricediscount
         from {{ref('stg_sales_order_detail')}}
     )
-
-    , sales_order_header_sales_reason as (
+    
+    , salesorderheadersalesreason as (
         select
-            /* Primary key and Foreign key */
+            /* Primary key and foreign key */
             salesreasonid
             , salesorderid
         from {{ref('stg_sales_order_header_sales_reason')}}
     )
-
-    , credit_card as (
-        select * 
-        from {{ ref('stg_sales_credit_card') }}	
-    )
-
-    , int_reason as (
-        select *
-        from {{ref('agg_reason')}}
+    
+    , creditcard as (
+	    select * 
+	    from {{ ref('stg_sales_credit_card') }}	
     )
 
     , union_credit_card as (
-        select 
-            sales_order_header.*
-            , credit_card.cardtype
-        from sales_order_header 
-        left join credit_card 
-            on credit_card.creditcardid = sales_order_header.creditcardid
+	    select 
+	    	salesorderheader.*
+	    	, cardtype
+	    from salesorderheader 
+	    left join creditcard on creditcard.creditcardid = salesorderheader.creditcardid
     )
 
     , union_header_detail as (
-        select 
+	    select 
             union_credit_card.*
-            , sales_order_detail.salesorderdetailid
-            , sales_order_detail.carriertrackingnumber
-            , sales_order_detail.productid
-            , sales_order_detail.orderqty
-            , sales_order_detail.unitprice
+            , salesorderdetailid
+            , carriertrackingnumber
+            , productid
+            , orderqty
+            , unitprice
             , case 
-                when sales_order_detail.unitpricediscount != 0
-                    then sales_order_detail.unitpricediscount
+                when unitpricediscount != 0
+                    then unitpricediscount
                 else null
             end as unitpricediscount
-            , ((1 - coalesce(sales_order_detail.unitpricediscount, 0)) 
-                * sales_order_detail.unitprice * sales_order_detail.orderqty) as sub_total_fixed
-        from sales_order_detail 
-        left join union_credit_card
-            on union_credit_card.salesorderid = sales_order_detail.salesorderid
+            , ((1 - coalesce(unitpricediscount,0)) * unitprice * orderqty) as sub_total_fixed
+        from salesorderdetail 
+        left join union_credit_card on union_credit_card.salesorderid =  salesorderdetail.salesorderid
     )
 
     , count_orders as (
         select 
             salesorderid
-            , count(*) as count_orders_rows
+            , count(salesorderid) as count_orders_rows
         from union_header_detail
         group by salesorderid
     )
@@ -109,42 +102,42 @@ with
     , join_fixing_columns as (
         select
             union_header_detail.*
-            , count_orders.count_orders_rows
-            , union_header_detail.freight / count_orders.count_orders_rows as freight_fixed
-            , union_header_detail.taxamt / count_orders.count_orders_rows as tax_fixed
+            , count_orders_rows
+            , freight / count_orders_rows as freight_fixed
+            , taxamt / count_orders_rows as tax_fixed
         from union_header_detail
-        left join count_orders
-            on count_orders.salesorderid = union_header_detail.salesorderid
+        left join count_orders on count_orders.salesorderid  = union_header_detail.salesorderid
     )
 
     , fixed_table as (
         select 
             salesorderid
+            , productid
             , salesorderdetailid
             , customerid
+            , salespersonid
             , territoryid
             , billtoaddressid
             , shiptoaddressid
             , shipmethodid
             , creditcardid
-            , productid
-            , orderdate
+            , orderdate as order_date
+            , case 
+                when creditcardapprovalcode is not null
+                    then 'Credit Card Payment'
+                else 'Other payment method'
+            end as paid_with_credit_card
             , case 
                 when purchaseordernumber is not null
                     then 'Physical store'
-                else 'Purchase online'
+                else 'Online purchase'
             end as online_order
-            , case 
-                when creditcardapprovalcode is not null
-                    then 'Credit card payment'
-                else 'Other payment method'
-            end as paid_with_credit_card
-            , cardtype
+            , cardtype as card_type
             , order_status
-            , carriertrackingnumber
-            , orderqty
-            , unitprice
-            , unitpricediscount
+            , carriertrackingnumber as carrier_tracking_number
+            , orderqty as order_qty
+            , unitprice as unit_price
+            , unitpricediscount as unit_price_discount
             , sub_total_fixed
             , freight_fixed
             , tax_fixed
@@ -153,36 +146,5 @@ with
         from join_fixing_columns
     )
 
-    , union_reason as (
-        select
-            fixed_table.salesorderid
-            , fixed_table.salesorderdetailid
-            , fixed_table.customerid
-            , fixed_table.territoryid
-            , fixed_table.billtoaddressid
-            , fixed_table.shiptoaddressid
-            , fixed_table.shipmethodid
-            , fixed_table.creditcardid
-            , fixed_table.productid
-            , fixed_table.orderdate as order_date
-            , fixed_table.online_order
-            , fixed_table.paid_with_credit_card
-            , fixed_table.cardtype as card_type
-            , fixed_table.order_status
-            , fixed_table.carriertrackingnumber as carrier_tracking_number
-            , fixed_table.orderqty as order_qty
-            , fixed_table.unitprice as unit_price
-            , fixed_table.unitpricediscount as unit_price_discount
-            , fixed_table.sub_total_fixed
-            , fixed_table.freight_fixed
-            , fixed_table.tax_fixed
-            , fixed_table.total_due_fixed
-            , fixed_table.total_gross
-            , int_reason.reason_type
-        from fixed_table
-        left join int_reason 
-            on int_reason.salesorderid = fixed_table.salesorderid     
-    )
-
 select * 
-from union_reason
+from fixed_table

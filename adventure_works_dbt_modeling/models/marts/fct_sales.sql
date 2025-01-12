@@ -4,31 +4,58 @@ with
         from {{ ref('int_sales') }}
     )
     
-    , dates as (
-        select metric_date
-        from {{ ref('dim_dates') }}
+    , clients as (
+        select
+            dim_client_sk as dim_client_fk
+            , customerid
+        from {{ref('dim_clients')}} 
     )
 
-    , deduplication_data as (
+    , creditcards as (
         select
-            *
-            , row_number() over (
-                partition by salesorderid, salesorderdetailid 
-                order by salesorderid
-            ) as dedup_index
-        from int_sales
+            dim_creditcard_sk as dim_creditcard_fk
+            , creditcardid
+        from {{ref('dim_credit_card')}}
+    )
+
+    , locations as (
+        select
+            dim_location_sk as dim_location_fk
+            , shiptoaddressid
+        from {{ref('dim_locations')}}
+    )
+
+    , products as (
+        select
+            dim_product_sk as dim_product_fk
+            , productid
+        from {{ref('dim_products')}}
+    )
+
+    , dates as (
+        select
+            dim_date_sk as dim_date_fk
+            , metric_date
+        from {{ref('dim_dates')}}
+    )
+
+    , aggregated_reasons as (
+        select
+            dim_sales_reason_sk as dim_sales_reason_fk
+            , salesorderid
+        from {{ ref('dim_sales_reason') }}
     )
 
     , sales_transformed_final  as (
         select
-            {{ dbt_utils.generate_surrogate_key(['salesorderid','salesorderdetailid']) }}  as fct_sales_sk
-            , {{ dbt_utils.generate_surrogate_key(['salesorderid']) }} as sales_order_fk
-            , {{ dbt_utils.generate_surrogate_key(['productid']) }} as dim_product_fk
-            , {{ dbt_utils.generate_surrogate_key(['customerid']) }} as dim_client_fk
-            , {{ dbt_utils.generate_surrogate_key(['shiptoaddressid']) }} as dim_location_fk
-            , {{ dbt_utils.generate_surrogate_key(['creditcardid']) }} as dim_creditcard_fk
-            , {{ dbt_utils.generate_surrogate_key(['reason_type']) }} as dim_sales_reason_fk
-            , {{ dbt_utils.generate_surrogate_key(['metric_date']) }} as dim_date_fk
+            {{ create_surrogate_key(['int_sales.salesorderid','int_sales.salesorderdetailid']) }}  as fct_sales_sk
+            , {{ create_surrogate_key(['int_sales.salesorderid']) }} as sales_order_fk
+            , products.dim_product_fk
+            , clients.dim_client_fk
+            , locations.dim_location_fk
+            , creditcards.dim_creditcard_fk
+            , dates.dim_date_fk
+            , aggregated_reasons.dim_sales_reason_fk
             , order_date
             , online_order
             , carrier_tracking_number
@@ -38,13 +65,17 @@ with
             , unit_price
             , unit_price_discount
             , sub_total_fixed
-            , freight_fixed
-            , tax_fixed
+            , round(freight_fixed,4) as freight_fixed
+            , round(tax_fixed,4) as tax_fixed
             , total_gross
-            , total_due_fixed
-        from deduplication_data
-        left join dates 
-            on deduplication_data.order_date = dates.metric_date 
+            , round(total_due_fixed,2) as total_due_fixed
+        from int_sales
+        left join dates on int_sales.order_date = dates.metric_date
+        left join aggregated_reasons on int_sales.salesorderid = aggregated_reasons.salesorderid
+        left join products on int_sales.productid = products.productid
+        left join clients on int_sales.customerid = clients.customerid
+        left join creditcards on int_sales.creditcardid = creditcards.creditcardid
+        left join locations on int_sales.shiptoaddressid = locations.shiptoaddressid
     )
 
 select *

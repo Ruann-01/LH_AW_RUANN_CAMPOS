@@ -20,18 +20,6 @@ models:
             SC = Store Contact, IN = Individual customer, SP = Salesperson,
             EM = Employee (non-sales), VC = Vendor contact, GC = General contact.
 
-      - name: firstname
-        description: >
-            Person's first name.
-
-      - name: middlename
-        description: >
-            Person's middle name.
-
-      - name: lastname
-        description: >
-            Person's last name.
-
       - name: namestyle
         description: >
             Data in firstname and lastname are stored in western or eastern style.
@@ -44,6 +32,10 @@ models:
       - name: suffix
         description: >
             Surname suffix (e.g., Jr., Sr.).
+
+      - name: complete_name
+        description: >
+          Complete name (first name + last name) of the person.
 
       - name: additionalcontactinfo
         description: >

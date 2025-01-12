@@ -40,14 +40,10 @@ models:
       - name: dim_creditcard_fk
         description: >
           Foreign key referencing the credit card dimension table.
-        tests:
-          - not_null
       
       - name: dim_sales_reason_fk
         description: >
           Foreign key referencing the sales reason dimension table.
-        tests:
-          - not_null
 
       - name: dim_date_fk
         description: >

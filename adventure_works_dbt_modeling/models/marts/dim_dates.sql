@@ -1,12 +1,15 @@
 with 
-    /* Using dbt_utils to create a sequence of days. */
-    date_series as (
-           {{ dbt_utils.date_spine(
-                datepart="day",
-                start_date= "cast('2011-05-01' as date)", 
-                end_date="cast('2014-07-31' as date)"
-           )
-           }}
+    number_series as (
+        select 
+            row_number() over(order by seq4()) - 1 as day_offset
+        from table(generator(rowcount => 365 * 4)) 
+    )
+
+    , date_series as (
+        select 
+            dateadd(day, day_offset, cast('2011-05-01' as date)) as date_day
+        from number_series
+        where dateadd(day, day_offset, cast('2011-05-01' as date)) <= cast('2014-07-31' as date)
     )
 
     /* Creating necessary columns to use in PowerBI. */
@@ -37,7 +40,7 @@ with
 
     , date_columns_final as (
         select
-            {{ dbt_utils.generate_surrogate_key(['metric_date']) }} as dim_date_sk
+            {{ create_surrogate_key(['metric_date']) }} as dim_date_sk
             , metric_date
             , select_day
             , select_month

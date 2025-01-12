@@ -34,13 +34,11 @@ models:
         description: >
           Latitude and longitude of this address.
 
-      - name: addressline1
-        description: >
-          First street address line.
-
-      - name: addressline2
-        description: >
-          Second street address line.
+      - name: full_address
+        description: 
+          Complete customer address.
+        tests:
+          - not_null
 
       - name: modifieddate
         description: >

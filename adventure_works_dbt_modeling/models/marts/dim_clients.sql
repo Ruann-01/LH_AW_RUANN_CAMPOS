@@ -16,7 +16,7 @@ with
             businessentityid
             /* Others informations */
             , persontype
-            , concat(firstname ,' ',lastname) as complete_name
+            , complete_name
         from {{ref('stg_person')}}
     )
 
@@ -33,7 +33,7 @@ with
 
     , join_dim_client as (
         select
-            {{ dbt_utils.generate_surrogate_key(['customer.customerid']) }} as dim_client_sk
+            {{ create_surrogate_key(['customer.customerid']) }} as dim_client_sk
             , customer.customerid
             , customer.personid
             , coalesce(customer.storeid, 0) as storeid
@@ -50,10 +50,8 @@ with
             end as person_type
             , coalesce(person.complete_name, 'Unknown Name') as complete_name
         from customer
-        left join person 
-            on customer.personid = person.businessentityid
-        left join store 
-            on customer.storeid = store.businessentityid
+        left join person on customer.personid = person.businessentityid
+        left join store on customer.storeid = store.businessentityid
         where customer.personid is not null
         order by customer.customerid asc
     )

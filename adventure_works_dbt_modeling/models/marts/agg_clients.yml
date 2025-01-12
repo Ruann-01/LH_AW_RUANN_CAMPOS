@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: agg_clients
+    description: >
+      This aggregation table contains information about clients.
+
+    columns:
+      - name: customerid
+        description: >
+          This is a unique identifier for each client.
+        tests:
+          - unique
+          - not_null
+
+      - name: full_name
+        description: >
+          client full name.
+
+      - name: country_name
+        description: >
+          client's country.
+
+      - name: full_address
+        description: >
+          client's full address.
+
+      - name: state
+        description: >
+          State name.
+
+      - name: cltv
+        description: >
+          client lifetime value. It refers to how much a client spent overall.
+
+      - name: first_purchase
+        description: >
+          The first time a client made a purchase.
+
+      - name: last_purchase
+        description: >
+          The last date a client bought something.
+
+      - name: client_lifetime_months
+        description: >
+          The amount of time a client has been a client.

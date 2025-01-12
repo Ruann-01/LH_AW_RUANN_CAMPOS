@@ -9,9 +9,7 @@ with
             , persontype
             , title
             , suffix
-            , firstname
-            , middlename
-            , lastname
+            , concat(person.firstname ,' ',person.lastname) as complete_name
             , additionalcontactinfo
             , demographics
             , emailpromotion

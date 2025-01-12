@@ -38,7 +38,7 @@ with
     
     , join_dim_locations as (
         select
-            {{ dbt_utils.generate_surrogate_key(['shiptoaddressid']) }} as dim_location_sk
+            {{ create_surrogate_key(['shiptoaddressid']) }} as dim_location_sk
             , sales_order_header.shiptoaddressid
             , address_information.stateprovinceid
             , address_information.city
@@ -47,12 +47,9 @@ with
             , state_province.name_state_province
             , country_region.name_country
         from sales_order_header
-        left join address_information 
-            on address_information.addressid = sales_order_header.shiptoaddressid
-        left join state_province 
-            on address_information.stateprovinceid = state_province.stateprovinceid
-        left join country_region
-            on state_province.countryregioncode = country_region.countryregioncode
+        left join address_information on address_information.addressid = sales_order_header.shiptoaddressid
+        left join state_province on address_information.stateprovinceid = state_province.stateprovinceid
+        left join country_region on state_province.countryregioncode = country_region.countryregioncode
     )
 
     , locations_transformed as (

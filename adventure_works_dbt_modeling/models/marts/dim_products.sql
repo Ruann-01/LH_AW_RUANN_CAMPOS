@@ -35,7 +35,7 @@ with
 
     , join_dim_product as (
         select
-            {{ dbt_utils.generate_surrogate_key(['productid']) }} as dim_product_sk
+            {{ create_surrogate_key(['productid']) }} as dim_product_sk
             , coalesce(product.productsubcategoryid, 0) as productsubcategoryid
             , product.productid
             , product.name_product
@@ -44,13 +44,11 @@ with
             , product_category.name_product_category
             , coalesce(product_subcategory.name_product_subcategory, 'Not informed') as name_product_subcategory
             from product
-            left join product_subcategory 
-                on product.productsubcategoryid = product_subcategory.productsubcategoryid
-            left join product_category 
-                on product_subcategory.productcategoryid = product_category.productcategoryid
+            left join product_subcategory on product.productsubcategoryid = product_subcategory.productsubcategoryid
+            left join product_category on product_subcategory.productcategoryid = product_category.productcategoryid
     )
 
-    , products_transformed as (
+    , products_transformed_deduplicated as (
         select 
             dim_product_sk
             , productid
@@ -68,5 +66,5 @@ with
     )
 
 select *
-from products_transformed
+from products_transformed_deduplicated
 where remove_duplicates_index = 1 

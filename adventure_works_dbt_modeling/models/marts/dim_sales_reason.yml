@@ -8,11 +8,19 @@ models:
     columns:
       - name: dim_sales_reason_sk
         description: >
-          Surrogate key generated using salesorderid and reason_type.
+          Surrogate key generated using salesorderid.
         tests:
           - not_null
           - unique
 
+      - name: salesorderid
+        description: >
+          Sales reason identifier.
+
       - name: reason_type
         description: >
           Type of sales reason.
+
+      - name: name_salesreason
+        description: >
+          Name of the sales reason.
