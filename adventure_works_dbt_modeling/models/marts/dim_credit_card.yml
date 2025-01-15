@@ -26,4 +26,4 @@ models:
 
       - name: card_type
         description: >
-          Type of credit card. Defaulted to 'Not informed' if null.
+          Type of credit card. Defaulted to 'Não informado' if null.

@@ -56,6 +56,7 @@ with
             , creditcards.dim_creditcard_fk
             , dates.dim_date_fk
             , aggregated_reasons.dim_sales_reason_fk
+            , int_sales.customerid
             , order_date
             , online_order
             , carrier_tracking_number

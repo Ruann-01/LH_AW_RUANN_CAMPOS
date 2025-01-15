@@ -28,7 +28,7 @@ with
             , salesorderheader.customerid
             , salesorderheader.salespersonid
             , coalesce(salesorderheader.creditcardid, 0) as creditcardid
-            , coalesce(creditcard.cardtype, 'Other method') as card_type
+            , coalesce(nullif(trim(cardtype), ''), 'Não informado') AS card_type
             from salesorderheader
             left join creditcard on (salesorderheader.creditcardid = creditcard.creditcardid)
             order by salesorderheader.salesorderid asc
