@@ -35,7 +35,7 @@ with
             , order_header.salespersonid
             , person.complete_name
             , country_region.name_country
-            , count(order_header.salesorderid) as total_sales -- Agregação correta
+            , count(order_header.salesorderid) as total_sales 
             , row_number() over (
                 partition by sales_person.businessentityid 
                 order by sales_person.businessentityid
