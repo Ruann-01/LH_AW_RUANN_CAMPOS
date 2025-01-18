@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: agg_sales_person_location
+    description: >
+      This aggregation table contains information about sales person by region as required.
+
+    columns:
+      - name: businessentityid
+        description: >
+          This is a unique identifier for each sales person.
+        tests:
+          - unique
+          - not_null
+
+      - name: complete_name
+        description: >
+          Sales person complete name.
+
+      - name: name_country
+        description: >
+          Sales person country name.
+
+      - name: total_sales
+        description: >
+          Total sales.

@@ -13,19 +13,19 @@ models:
           - unique
           - not_null
 
-      - name: full_name
+      - name: complete_name
         description: >
-          client full name.
+          Client complete name.
 
-      - name: country_name
+      - name: name_country
         description: >
-          client's country.
+          Client's country name.
 
       - name: full_address
         description: >
-          client's full address.
+          Client's full address.
 
-      - name: state
+      - name: name_state_province
         description: >
           State name.
 

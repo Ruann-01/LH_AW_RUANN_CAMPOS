@@ -37,6 +37,12 @@ models:
         tests:
           - not_null
 
+      - name: dim_date_fk
+        description: >
+          Foreign key referencing the dates dimension table.
+        tests:
+          - not_null
+
       - name: dim_creditcard_fk
         description: >
           Foreign key referencing the credit card dimension table.
@@ -45,11 +51,13 @@ models:
         description: >
           Foreign key referencing the sales reason dimension table.
 
-      - name: dim_date_fk
+      - name: customerid
         description: >
-          Foreign key referencing the dates dimension table.
-        tests:
-          - not_null
+          Customer identifier.
+
+      - name: salespersonid
+        description: > 
+          Identification number of the salesperson
 
       - name: order_date
         description: >

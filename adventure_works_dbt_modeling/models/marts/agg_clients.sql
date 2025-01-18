@@ -14,7 +14,7 @@ with
         from {{ ref('stg_sales_store') }}
     )
 
-    , address as (
+    , address_information as (
         select *
         from {{ ref('stg_person_address') }}
     )   
@@ -73,13 +73,13 @@ with
             , state_province.name_state_province
             , country_region.name_country
             , country_region.countryregioncode as country_code
-            , address.full_address
+            , address_information.full_address
         from clients 
         left join order_header on clients.customerid = order_header.customerid
         left join order_itens on order_itens.salesorderid = order_header.salesorderid
         left join products on order_itens.productid = products.productid
-        left join address on order_header.shiptoaddressid = address.addressid
-        left join state_province on address.stateprovinceid = state_province.stateprovinceid
+        left join address_information on order_header.shiptoaddressid = address_information.addressid
+        left join state_province on address_information.stateprovinceid = state_province.stateprovinceid
         left join country_region on state_province.countryregioncode = country_region.countryregioncode
     )
 
@@ -112,7 +112,7 @@ with
             , round(cltv,2) as cltv
             , first_purchase
             , last_purchase
-            , round(datediff('day', first_purchase, last_purchase) / 30.44, 1) as customer_lifetime_months
+            , round(datediff('day', first_purchase, last_purchase) / 30.44, 1) as client_lifetime_months
         from agg_clients
         where cltv is not null 
     )
