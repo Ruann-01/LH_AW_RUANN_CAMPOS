@@ -46,8 +46,7 @@ with
 
     , clients as (
         select
-            {{ create_surrogate_key(['client.customerid', 'client.personid']) }} as sk_client
-            , client.customerid
+            client.customerid
             , client.personid
             , person.complete_name
             , client.storeid
@@ -117,4 +116,5 @@ with
         where cltv is not null 
     )
 
-select * from agg_clients_final 
+select * 
+from agg_clients_final 
