@@ -1,6 +1,6 @@
 {{
     config(
-        severety = 'error'
+        severity = 'error'
     )
 }}
 

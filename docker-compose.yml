@@ -17,7 +17,7 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW__CORE__FERNET_KEY: 'y1WFolOpfKYvhgfvBvh2OeyCBTKUj0swcPTdYWE7qJ4='
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW__CORE__FERNET_KEY}
     depends_on:
       - postgres
     entrypoint: >
